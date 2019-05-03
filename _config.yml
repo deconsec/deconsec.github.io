@@ -1,1 +1,51 @@
-theme: jekyll-theme-minimal
+remote_theme: wbmartin/mediumish-theme-jekyll
+baseurl: /
+name: Deconstructed Security
+description: wbmartin's blog
+logo: assets/images/logo.png
+disqus: ''
+google_analytics: 'UA-131803719-1'
+
+
+# Authors
+authors:
+  b:
+    name: b
+    display_name: W Brandon Martin
+    web: https://www.linkedin.com/in/wbrandonmartin/
+    twitter: https://twitter.com/plainoldbrandon
+    description: "Simplifying Information Security"
+
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-archives
+
+
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+  layout: archive
+  permalinks:
+    category: '/category/:name/'
+
+# Pagination
+paginate: 6
+paginate_path: /page:num/
+
+# Other
+markdown: kramdown
+highlighter: rouge
+
+collections:
+  category:
+    output: true
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: category
+    values:
+      layout: "category"
