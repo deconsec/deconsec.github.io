@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: simple
 title: Home
 ---
 
@@ -12,3 +12,5 @@ Deconstructed Security LLC is my new business venture and our website is still u
 <li> <a href="/talks/KillChain-ISSA-20190502/">Baking-in and Bolting-on Security - Carolina Con (May 2, 2019)</a></li>
 <li> <a href="/talks/BakeBolt-CarolinaCon20190428/">Cybersecurity Kill Chain - Charlotte ISSA Summit (May 2, 2019)</a></li>
 </ul>
+
+<p>count: 1</p>
