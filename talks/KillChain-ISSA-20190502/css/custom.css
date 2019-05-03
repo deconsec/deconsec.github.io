@@ -1,0 +1,103 @@
+/*
+Speaker notes allow you to write comments within the steps, that will not
+be displayed as part of the presentation. However, they will be picked up
+and displayed by impressConsole.js when integrated.
+*/
+
+.notes {
+    display: none;
+}
+
+.slide h1 {
+  font-size: 175%;
+  text-align: left;
+  margin-top: 30%;
+}
+
+.slide h2 {
+  font-size: 150%;
+  text-align: left;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.slide h3 {
+  font-size: 110%;
+  text-align: left;
+  margin-top: 5%;
+}
+
+
+
+.slide .bottom-right-pic {
+  position:absolute;
+   bottom:0;
+   right:0;
+   margin-bottom: 2%;
+   margin-right: 2%;
+
+}
+
+.slide .bottom-left-pic {
+  position:absolute;
+   bottom:0;
+   left:0;
+   margin-bottom: 2%;
+   margin-left: 2%;
+
+}
+
+.slide ul{
+  list-style: circle;
+  margin-left: 5%;
+}
+
+.slide ol{
+  list-style: decimal;
+  margin-left: 5%;
+}
+
+.slide .caveat {
+  font-style:italic;
+  font-size:85%;
+}
+
+.section-break {
+  background-color: black;
+  margin-top:40%;
+  color: white;
+}
+
+span.emph {
+  font-weight: bolder;
+}
+
+.slide table th {
+  background-color: black;
+  color: white;
+}
+
+.slide table {
+
+
+
+}
+
+.slide table td {
+  font-size: 75%;
+  color: black;
+  border: 1px solid black;
+  line-height: normal;
+  padding: .33%;
+}
+
+/* Substep plugin */
+
+#impress .step .substep {
+    opacity: 0;
+}
+
+#impress .step .substep.substep-visible {
+    opacity: 1;
+    transition: opacity 1s;
+}

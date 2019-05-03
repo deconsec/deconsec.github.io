@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Cybersecurity Kill Chain | Layers and Structures of Cyber Attacks</title>
+
+    <meta name="description" content="Cybersecurity loves buzzwords and they
+    always need unpacking to grasp what a person really means.  We most often
+    hear “Kill Chain” used in marketing and reactive high-level security
+    incident summaries.  However, proactively mapping a defense in depth
+    strategy to the kill chain can avoid duplication and control gaps.  This
+    talk explores recent and classic breaches, mapping the attacker’s steps to
+    the kill chain. Through this mapping we also talk about the missed control
+    opportunities and the consequences.  THIS IS NOT A SALES PITCH.  Controls will
+    be discussed in abstract terms and specific products suggested only for
+    clarification.  The conversation also explores the history and challenges
+    to the Kill Chain model through a risk management lens.  If you want to
+    ensure you’re getting the most out of a buzzwords and filtering the hype,
+    this distilled discussion will keep you grounded in practical security. " />
+    <meta name="author" content="W. Brandon Martin" />
+
+
+    <!-- #####  https://impress.js.org/css/impress-demo.css-->
+    <link href="css/impress.css" rel="stylesheet"/>
+    <link href="css/fonts.css" rel="stylesheet"/>
+    <link href="css/custom.css" rel="stylesheet"/>
+
+
+  </head>
+  <body class="impress-not-supported">
+    <div class="fallback-message">
+      <p>Your browser <b>doesn't support the features required</b> by
+        impress.js, so you are presented with a simplified version of
+        this presentation.
+      </p>
+      <p>For the best experience please use the latest
+        <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.
+      </p>
+    </div>
+    <div id="impress">
+
+      <div class="step slide title" data-x="0" data-y="0" >
+        <h1>Cybersecurity Kill Chain</h1>
+        <h3>A Structural Analysis of Cyber Attacks and Defense</h3>
+        <h3>W. Brandon Martin</h3>
+        <div class="notes">
+        <ul>
+            <li>Welcome</li>
+            <li>Thank you to ISSA for the opportunity and the attendees for providing the venue</li>
+            <li>Conversational invitation</li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="step slide" data-x="0" data-y="1000" >
+        <h2>About Me</h2>
+        <ul>
+          <li>Christian</li>
+          <li>Dad (x3)</li>
+          <li>Independant Cyber Security Consultant</li>
+          <li>Raised in a barn</li>
+          <li>Creds
+            <ul>
+              <li>OSCP, OSWP, GPEN</li>
+              <li>CISSP, CRISC</li>
+              <li>6 Sigma Black Belt</li>
+            </ul>
+          </li>
+        </ul>
+        <br>
+        <p style="width:50%; margin-left:5%;" class='caveat'>All opinions are my own and do not necessarily represent any one else’s view.</p>
+        <img class='bottom-right-pic' src='img/family-disneycastle.jpg' style='height: 60%;' alt='family at disney'>
+        <div class="notes">
+          <ul>
+            <li>Raised in a barn - clich&#233; that doesn't make a whole lot of sense</li>
+            <li>Brace yourself for memes.  - A couple reasons
+              <ul>
+                <li>If you're bored, you'll hopefully get a chuckle every 3 or 4 slides and wake yourself up.</li>
+                <li>Memes are a way to communicate with a diverse audience</li>
+                <li>Memes teach us about ourselves.</li>
+                <li>After all, this is a talk about security beyond the clich&#233;.</li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+      <div class="step slide" data-x="0" data-y="2000" >
+        <h2>The Next 45 Minutes</h2>
+        <ul style="list-style:none">
+          <li>01 - Overview & Background</li>
+          <li>02 - Real World Kill Chains</li>
+          <li>03 - Practical Application</li>
+          <li>04 - Challenges to the Model</li>
+          <li>05 - Defense in Depth</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/cyber-is-coming.jpg' alt=''>
+
+      </div>
+
+      <div class="step slide section-break" data-x="0" data-y="3000" >
+        <h1 style="">01 - Background & Overview</h1>
+
+      </div>
+
+      <div class="step slide" data-x="0" data-y="4000" >
+        <h2 style="">Borrowed from Military Language</h2>
+        <ol style="width:75%;">
+          <li><span class='emph'>Find:</span> Locate the target. </li>
+          <li><span class='emph'>Fix:</span> Fix their location; or make it difficult for them to move.</li>
+          <li><span class='emph'>Track:</span> Monitor their movement.</li>
+          <li><span class='emph'>Target:</span> Select an appropriate weapon or asset to use on the target to create desired effects.</li>
+          <li><span class='emph'>Engage:</span> Apply the weapon to the target.</li>
+          <li><span class='emph'>Assess:</span> Evaluate effects of the attack, including any intelligence gathered at the location</li>
+        </ol>
+        <img class='bottom-right-pic' style='height:30%' src='img/pitty-the-fool-context.jpg' alt='context is important'>
+        <div class='notes'>
+          F2T2EA
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="5000" >
+        <h2 style="">Two Risk Prerequisites</h2>
+        <ul style="width:75%;">
+          <li>Vulnerability</li>
+          <li>Threat
+            <ul>
+              <li>Means</li>
+              <li>Motive</li>
+              <li>Opportunity</li>
+            </ul>
+          </li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/skip-the-prereq.jpg' alt='prereqs are important'>
+        <div class='notes'>
+          <ul>
+            <li> The Kill Chain doesn’t start without both. </li>
+            <li>
+            Vulnerability may be broader than you’re thinking – Before EternalBlue,
+            people had relaxed about the SMB protocol as a vulnerability on
+            their internal network
+            </li>
+            <li>          Means is changing landscape – information about
+              vulnerabilities and exploits gets published faster and faster.</li>
+            <li> Motive can also be tricky.  </li>
+            <li>Sometimes we pretend our threats are coin operated.  They may be seeking
+              <ul>
+                <li>notoriety,</li>
+                <li>retribution</li>
+                <li>irrational motivation we can’t predict.</li>
+              </ul>
+            </li>
+            <li> Opportunity points us back to the vulnerability.  They have to
+               have something they can exploit and that’s where we meet the
+               information security Kill chain.
+            </li>
+          </ul>
+        </div>
+
+
+
+      </div>
+
+      <div class="step slide" data-x="0" data-y="6000" >
+        <h2 style="">It's a Model</h2>
+        <ul style="width:75%;">
+          <li>Malware focused</li>
+          <li>Narrow view of C2</li>
+          <li>Supplemental Kill Chains available</li>
+          <li>Comfortable and stable</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:60%' src='img/northrop-grumman-killchain.png' alt='killchain'>
+        <div class='notes'>
+          <ul>
+            <li>https://en.wikipedia.org/wiki/</li>
+            <li> Lockheed Martin 2011</li>
+            <li>Recon – Pen Test Feedback</li>
+            <li>Weaponizatoin – hard to stop.</li>
+            <li>Delivery if you can stop delivery, you break the kill chain</li>
+            <li>Installation – this dates back to when persistence was important</li>
+        </ul>
+
+        </div>
+      </div>
+      <div class="step slide section-break" data-x="0" data-y="7000" >
+        <h1 style="">02 - Real World Kill Chains</h1>
+
+      </div>
+
+
+
+      <div class="step slide" data-x="0" data-y="8000" >
+        <h2 style="">WannaCry - May 2017</h2>
+
+
+            <table>
+              <tr>
+                  <th>Kill Chain Phases</th>
+                  <th>Adversary Actions</th>
+                  <th>Defensive Response</th>
+              </tr>
+              <tr>
+                <td>Recon</td>
+                <td>Realize people use windows and don’t patch.</td>
+                <td><span class='substep '>Apply patches faster.</span></td>
+              </tr>
+
+              <tr>
+                <td>Weaponization </td>
+                <td>Download Shadow Brokers exploit dumps.</td>
+                <td><span class='substep '>NOTHING</span></td>
+              </tr>
+              <tr>
+                <td>Delivery </td>
+                <td>SMB internet traffic; propagate inside.</td>
+                <td><span class='substep '>Manage perimeters including mobile workstations.</span></td>
+              </tr>
+              <tr>
+                <td>Exploitation </td>
+                <td>“Eternal Blue”  = instapwn </td>
+                <td><span class='substep '>Heuristic AV and network restriction</span></td>
+              </tr>
+              <tr>
+                <td>Installation </td>
+                <td>Code execution is code execution. </td>
+                <td><span class='substep '>[Monitor for launching at boot]</span></td>
+              </tr>
+              <tr>
+                <td>Command & Control </td>
+                <td>Kill switch drama, counter attacks </td>
+                <td><span class='substep '>Control Egress Traffic</span></td>
+              </tr>
+              <tr>
+                <td>Action on Objectives</td>
+                <td>Encrypt and ransom victim’s data. </td>
+                <td><span class='substep '>Pull out the backups</span></td>
+              </tr>
+
+            </table>
+
+
+        <div class='notes'>
+          <ul>
+            <li>As of 14 June 2017, after the attack had subsided</li>
+            <li>total of 327 payments totaling $130,634.77 USD (51.62396539 XBT) had been transferred</li>
+            <li>Great Britain National Health Service, deutsche bahn</li>
+            <li>200,000 Victims </li>
+            <li>300,00 Affected system</li>
+          </ul>
+
+        </div>
+      </div>
+
+
+
+      <div class="step slide" data-x="0" data-y="9000" >
+        <h2 style="">Equifax - Sept 2017</h2>
+
+
+            <table>
+              <tr>
+                  <th>Kill Chain Phases</th>
+                  <th>Adversary Actions</th>
+                  <th>Defensive Response</th>
+              </tr>
+              <tr>
+                <td>Recon</td>
+                <td>Read the weekly CVE report. Inventory versions.</td>
+                <td><span class='substep '>Hide the version from the attacker.</span></td>
+              </tr>
+
+              <tr>
+                <td>Weaponization </td>
+                <td>Reverse Engineer Patches.</td>
+                <td><span class='substep '>Nothing</span></td>
+              </tr>
+              <tr>
+                <td>Delivery </td>
+                <td>Interact with Equifax’s public REST service.</td>
+                <td><span class='substep '>Web Application Firewall Input Sanitization</span></td>
+              </tr>
+              <tr>
+                <td>Exploitation </td>
+                <td>Struts de-serializes crafted payload.</td>
+                <td><span class='substep '>Process Monitoring</span></td>
+              </tr>
+              <tr>
+                <td>Installation </td>
+                <td>Code Exec is code exec. </td>
+                <td><span class='substep '>Process Monitoring</span></td>
+              </tr>
+              <tr>
+                <td>Command & Control </td>
+                <td>[Shell to the internet]</td>
+                <td><span class='substep '>Restrict Egress Traffic</span></td>
+              </tr>
+              <tr>
+                <td>Action on Objectives</td>
+                <td>Search for sensitive data.  Exfiltrate.</td>
+                <td><span class='substep '>User/Entity Behavior Analysis (UEBA) Data Loss Prevention – threshold</span></td>
+              </tr>
+
+            </table>
+
+
+        <div class='notes'>
+        Vulnerability published in March, exploited in September Equifax.
+
+        </div>
+      </div>
+
+
+      <div class="step slide" data-x="0" data-y="10000" >
+        <h2 style="">Operation WireWire – June 2018</h2>
+
+
+            <table>
+              <tr>
+                  <th>Kill Chain Phases</th>
+                  <th>Adversary Actions</th>
+                  <th>Defensive Response</th>
+              </tr>
+              <tr>
+                <td>Recon</td>
+                <td>Social Media profiling / password guessing</td>
+                <td><span class='substep '>Training / password complexity; MFA</span></td>
+              </tr>
+
+              <tr>
+                <td>Weaponization </td>
+                <td>Look alike domains; filter bypasses / Pretext development.</td>
+                <td><span class='substep '>Email filters / unusual activity monitor</span></td>
+              </tr>
+              <tr>
+                <td>Delivery </td>
+                <td>Send the email / Get the attachment through.</td>
+                <td><span class='substep '>Email filters / spam & phishing flags</span></td>
+              </tr>
+              <tr>
+                <td>Exploitation </td>
+                <td>Social engineering wire-transfer authority.</td>
+                <td><span class='substep '>Process</span></td>
+              </tr>
+              <tr>
+                <td>Installation </td>
+                <td>Check the bank account.</td>
+                <td><span class='substep '>Try to recall the wire transfer.</span></td>
+              </tr>
+              <tr>
+                <td>Command & Control </td>
+                <td>Transfer funds to another bank.</td>
+                <td><span class='substep '>Go after the sketchy bank.</span></td>
+              </tr>
+              <tr>
+                <td>Action on Objectives</td>
+                <td>Enjoy a drink on the beach.</td>
+                <td><span class='substep '>Generate resume.</span></td>
+              </tr>
+
+            </table>
+
+
+        <div class='notes'>
+          <ul>
+            <li> https://www.fbi.gov/news/stories/international-bec-takedown-061118 </li>
+            <li>  74 arrests in the U.S. and overseas, including 42 in the U.S., 29 in Nigeria, and three in Canada, Mauritius, and Poland.</li>
+            <li>  seizure of nearly $2.4 million</li>
+            <li> the disruption and recovery of approximately $14 million in fraudulent wire transfers</li>
+            <li> Note that wire transfer authority… We don’t often think of them as a privileged user.</li>
+          </ul>
+
+
+        </div>
+      </div>
+      <div class="step slide section-break" data-x="0" data-y="11000" >
+        <h1 style="">03 - Practical Application</h1>
+        <div class='notes'>
+        </div>
+      </div>
+
+
+      <div class="step slide" data-x="0" data-y="13000" >
+        <h2 style="">Scenario 1 - Is My Hair on Fire?</h2>
+        <ul style="width:75%;">
+          <li>Adobe Acrobat – crafted PDF yields Remote Code Execution</li>
+          <li>DMZ application server on primary Active Directory domain</li>
+        </ul>
+        <p>But...</p>
+        <ul>
+          <li>Egress filtering - Should be hard to get out of the DMZ</li>
+          <li>User behavior - Admins don’t check email/browse the web on the server</li>
+        </ul>
+        <div class='substep '>
+          <img class='bottom-right-pic' style='height:30%' src='img/adobe-hair-fire.jpg' alt='hair on fire'>
+          <img class='bottom-left-pic' style='height:15%' src='img/h-killchain-stop3.png' alt='kill chain stops on 3'>
+        </div>
+        <div class='notes'>
+          <ul>
+            <li>Loaded gun locked in a safe doesn’t shoot anyone.</li>
+            <li>Am I saying don’t patch? – NO.</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="14000" >
+        <h2 style="">Scenario 1 - Adobe Acrobat Review</h2>
+        <table>
+          <tr>
+              <th>Kill Chain Phase</th>
+              <th>Questions to Ask</th>
+
+          </tr>
+          <tr>
+            <td>Recon</td>
+            <td>Is there anyway to stop the adversary from knowing about the issue or your environment?</td>
+          </tr>
+
+          <tr>
+            <td>Weaponization </td>
+            <td>Can I learn how to exploit the vulnerability on youtube?</td>
+          </tr>
+          <tr>
+            <td>Delivery </td>
+            <td>Can the adversary get the exploit into the vulnerable system?</td>
+          </tr>
+          <tr>
+            <td>Exploitation </td>
+            <td>Can I detect or prevent the exploit.
+              Will Application Whitelisting or my AV prevent this?
+              Will exploitation gain an adversary anything?
+            </td>
+          </tr>
+          <tr>
+            <td>Installation </td>
+            <td>Can the attack sustain a reboot?  Can they repeat the attack?</td>
+          </tr>
+          <tr>
+            <td>Command & Control </td>
+            <td>Can I detect their command and control?  Will I respond to it?</td>
+          </tr>
+          <tr>
+            <td>Action on Objectives</td>
+            <td>If your SIEM practice is strong, you might have a good story to tell. <br>Have you considered other employeers?</td>
+          </tr>
+        </table>
+
+        <div class='notes'>
+
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="15000" >
+        <h2 style="">Scenario 2 - Is My Hair on Fire?</h2>
+        <ul style="width:75%;">
+          <li>Adobe Acrobat – crafted PDF yields Remote Code Execution</li>
+          <li>User workstation that regularly processes untrusted PDFs</li>
+        </ul>
+        <br/>
+
+        <div class="substep">
+          <h3 style="color:red;">Yes, your hair is on fire!</h3>
+          <img class='bottom-right-pic' style='height:30%' src='img/hair-on-fire.jpg' alt='hair on fire'>
+          <img class='bottom-left-pic' style='height:15%' src='img/h-killchain-green.png' alt='kill chain green'>
+        </div>
+        <div class='notes'>
+
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="16000" >
+        <h2 style="">Scenario 2 - Adobe Acrobat</h2>
+        <table>
+          <tr>
+              <th>Kill Chain Phase</th>
+              <th>Think through it</th>
+
+          </tr>
+          <tr>
+            <td>Recon</td>
+            <td>Adversary knows you have old versions of Adobe, or nothing to
+               lose by being wrong.
+             </td>
+          </tr>
+
+          <tr>
+            <td>Weaponization </td>
+            <td>The wannabe hacker’s are racing to publish the youtube.</td>
+          </tr>
+          <tr>
+            <td>Delivery </td>
+            <td>Job function requires opening untrusted PDF’s.</td>
+          </tr>
+          <tr>
+            <td>Exploitation </td>
+            <td>Adobe is famous for giving up a shell.
+              Maybe your Process monitor would block it?
+            </td>
+          </tr>
+          <tr>
+            <td>Installation </td>
+            <td>Do the users have administrative privileges?
+              (otherwise regaining a lost foothold seems dicey?)
+</td>
+          </tr>
+          <tr>
+            <td>Command & Control </td>
+            <td>User Networks are notoriously hard to egress filter.
+              Can your firewall detect the anomaly in time?
+            </td>
+          </tr>
+          <tr>
+            <td>Action on Objectives</td>
+            <td>Maybe consider a different job code?</td>
+          </tr>
+        </table>
+        <div class='notes'>
+
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="17000" >
+        <h2 style="">Counter Kill Chain Strategy</h2>
+        <p style="font-size:80%">If you know the enemy and know yourself, you need not fear the
+          result of a hundred battles. If you know yourself, but not the enemy,
+          for every victory gained you will also suffer a defeat. If you know
+          neither the enemy nor yourself, you will succumb in every battle. <span style="font-weight:bold;">-Sun Tzu </span></p>
+
+        <ul style="width:75%;font-size:60%">
+          <li>Know what your defending
+            <ul>
+              <li>Know your hardware (CSC#1) and Software (CSC#2)</li>
+              <li>Minimize attack Surface (CSC#3,5)</li>
+              <li>Protect paths to your crown jewels (CSC#4)</li>
+            </ul>
+          </li>
+          <li>Know when it’s attacked
+            <ul>
+              <li>Choke Points</li>
+              <li>Combine NAC (CSC#1), Whitelisting (CSC#2), Vuln Management (CSC#3)</li>
+              <li>Monitoring for unusual activity (CSC#6)</li>
+              <li>Deception Tactics Honeypots and Honey Accounts</li>
+            </ul>
+          </li>
+        </ul>
+        <img class='bottom-right-pic' style='height:30%' src='img/counter-counter.jpg' alt='counter counter'>
+        <div class='notes'>
+          <ul>
+            <li>Sun Tzu and Xzibit</li>
+            <li>Sun Tzu - All warfare is based on deception; Appear weak when you are strong, and strong when you are weak.</li>
+            <li>CSC#1 - Inventory and Control of Hardware Assets</li>
+            <li>CSC#2 - Inventory and Control of Software Assets</li>
+            <li>CSC#3 - Continuous Vulnerability Management</li>
+            <li>CSC#4 - Controlled use of Adminstrator Privileges</li>
+            <li>CSC#5 - Secure Configuration</li>
+            <li>CSC#6 - Maintenance, Monitoring, and Analysis</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="step slide section-break" data-x="0" data-y="18000" >
+        <h1 style="">04 - Challenges to the Model</h1>
+        <div class='notes'>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="19000" >
+        <h2 style="">Sometimes good enough is…</h2>
+        <ol style="width:75%;">
+          <li>The model hasn’t seen conceptual revisions since 2011</li>
+          <li>Several variants, e.g. Phishing Kill Chain, but no traction</li>
+          <li>Doesn’t reflect iterative nature of advanced attacks</li>
+          <li>Biased towards malware attacks</li>
+          <li>Bottom Line – it’s getting the job done.</li>
+
+        </ol>
+        <img class='bottom-right-pic' style='height:35%' src='img/good-enough.jpg' alt='good enough'>
+        <div class='notes'>
+
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="20000" >
+        <h2 style="">Mitre Attack Framework</h2>
+
+        <img style='margin-left: auto; margin-right:auto; display:block; height:85%' src='img/mitre-matrix.png' alt='mitre matrix'>
+        <div class='notes'>
+          Malware – Insider threats, Denial of Service… not all action on objectives require all steps
+
+        </div>
+      </div>
+
+
+
+      <div class="step slide section-break" data-x="0" data-y="21000" >
+        <h1 style="">05 - Defense in Depth</h1>
+        <div class='notes'>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="22000" >
+        <h2 style="">How do you know your controls work?</h2>
+        <ul style="width:75%;">
+          <li>You test them!</li>
+          <li>Peel back outer controls and test the next layer.</li>
+          <li>Peel back more controls and test the next layer</li>
+          <li>Don’t stop at “couldn’t get in”… keep simulating control failures</li>
+        </ul>
+        <div class='notes'>
+
+        </div>
+      </div>
+
+      <div class="step slide section-break" data-x="0" data-y="23000" >
+        <h1 style="">06 - Questions</h1>
+        <img  style='height:40%; display: block; margin-left:auto; margin-right:auto; margin-top:5%;' src='img/clever-questions.jpg' alt='clever questions'>
+        <div class='notes'>
+        </div>
+      </div>
+
+
+    </div> <!-- End Impress Div -->
+
+    <script src='js/impress.js'></script>
+    <script>impress().init(); </script>
+  </body>
+</html>
