@@ -1,0 +1,604 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Baking and Bolting | Was I supposed to Mix the Security in Before Baking?</title>
+
+    <meta name="description" content="Security practitioners advocate ideals
+    through clich&#233;s and analogies to help others understand complex
+    problems.  One prominent analogy espouses baking security into a
+    solution instead of bolting security on at the end.  This seems like an
+    obvious analogy - a baker certainly can't add flour to a cake after
+    it's in the oven.  In business reality, time-to-market beats security
+    every day of the week.  How can an architect bake security into solutions
+    when the extra time could result in a failed venture?  This talk explores
+    the realities of blending security into the design and implementation of
+    solutions with a goal of realizing better is not the enemy of perfect.
+    Some implementations bolt on security beautifully; other design patterns
+    prove impossible to correct.  Look forward to a meme-filled tour of
+    architectures, design patterns, and lessons learned that will help
+    security practitioners and business people identify if they're cooking
+    soup or baking cakes (&#205;if that sounds like a mixed metaphor, don't
+    be late for supper)." />
+    <meta name="author" content="W. Brandon Martin" />
+
+
+
+    <link href="css/impress.css" rel="stylesheet" type="text/css"/>
+    <link href="css/fonts.css" rel="stylesheet" type="text/css"/>
+    <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+
+
+
+  </head>
+  <body class="impress-not-supported">
+    <div class="fallback-message">
+      <p>Your browser <b>doesn't support the features required</b>
+        by impress.js, so you are presented with a simplified version
+        of this presentation.
+      </p>
+      <p>For the best experience please use the latest <b>Chrome</b>,
+        <b>Safari</b> or <b>Firefox</b> browser.
+      </p>
+    </div>
+    <div id="impress">
+
+      <div class="step slide title" data-x="0" data-y="0" >
+        <h1>Was I supposed to Mix the Security in Before I Baked It?</h1>
+        <div class="vspacer"></div>
+        <h3>Security Beyond the Clich&#233;</h3>
+        <h3>W. Brandon Martin</h3>
+        <p>Deconstructed Security, LLC</p>
+        <img class='bottom-right-pic' style="height:15%; margin-bottom:5%;" src="img/rvasec-logo-cropped.png" alt="RVASec Logo">
+        <div class="notes">
+          <ul>
+            <li>Welcome</li>
+            <li>Thank you to RVASec (Karen, Chris) for the opportunity</li>
+            <li>And the attendees for sponsoring the meeting space</li>
+            <li>Conversational invitation</li>
+            <li>Inspiration for the clich&#233;
+              <ul>
+                <li>Baked-in vs. Bolt-on</li>
+                <li>Better is not the enemy of perfect.</li>
+                <li>Push security left.</li>
+                <li>Complexity is the enemy of security.</li>
+                <li>DOD Grade security</li>
+                <li>The only secure system is a powered-down system</li>
+              </ul>
+            </li>
+            <li>Brief introduction to set the stage for the rest of the conversation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="1000" >
+        <h2>The Next 45 Minutes</h2>
+        <ul style="list-style-type: none;">
+          <li>01 - Introduction</li>
+          <li>02 - Background &amp; Overview</li>
+          <li>03 - Security v. Business</li>
+          <li>04 - Security Balance</li>
+          <li>05 - Architectural Solutions</li>
+          <li>06 - Security Practitioners</li>
+          <li>07 - Questions</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/cyber-is-coming.jpg' alt='Cyber is coming.'>
+        <div class="notes">
+          <ul>
+            <li>Wave your had with questions any time, I want this to be conversational.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide section-break" data-x="0" data-y="2000" >
+        <h1 style="">01 - Introduction</h1>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="3000" >
+        <h2>About Me</h2>
+        <ul style="width: 60%;">
+          <li>Christian</li>
+          <li>Dad (x3)</li>
+          <li>Independent Security Consultant</li>
+          <li>Raised in a barn</li>
+          <li>Creds
+            <ul>
+              <li>OSCP, OSWP, GPEN</li>
+              <li>CISSP, CRISC</li>
+              <li>6 Sigma Black Belt</li>
+            </ul>
+          </li>
+          <li style="font-style:italic; font-size: .9em; line-height:1.1em;">Disclaimer: My statements today
+            do not necessarily represent anyone else's view or actionable
+            security advice.
+          </li>
+        </ul>
+
+        <img class='bottom-right-pic' src='img/family-disneycastle.jpg' style='height: 60%;' alt='Disney Castle'>
+        <div class="notes">
+          <ul>
+            <li>Raised in a barn - clich&#233; that doesn't make a whole lot of sense</li>
+            <li>Brace yourself for memes.  - A couple reasons
+              <ul>
+                <li>If you're bored, you'll hopefully get a chuckle every 3 or 4 slides and wake yourself up.</li>
+                <li>Memes are a way to communicate with a diverse audience</li>
+                <li>Memes teach us about ourselves.</li>
+                <li>After all, this is a talk about security beyond the clich&#233;.</li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+
+
+      <div class="step slide section-break" data-x="0" data-y="4000" >
+        <h1 style="">02 - Background &amp; Overview</h1>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="5000" >
+        <h2 style="">Problem Statement</h2>
+        <ul style="width:75%;">
+          <li>Good security requires planning and preparation.</li>
+          <li>Security requirements delay projects.</li>
+          <li>Businesses need projects to stay in business.</li>
+          <li>Business and security goals collide.</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/there-is-problem.jpg' alt='There is the problem.'>
+        <div class='notes'>
+          <ul>
+            <li>What Problem are we trying to solve.</li>
+            <li>Meme credit: https://knowyourmeme.com/memes/well-theres-your-problem</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="6000" >
+        <h2 style="">Goals</h2>
+        <ul style="font-size: 1.2em">
+          <li>Explore the security / business tension.</li>
+          <li>Review real-world balance failures.</li>
+          <li>Review architectures that worked and failed.</li>
+          <li>Re-define the security practitioner's role.</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/super-sweet.jpg' alt='Super Sweet.'>
+        <div class='notes'>
+          <ul>
+            <li>To really tackle the problem, we have to understand the motivations of each stakeholder.</li>
+            <li>Sometimes we get it right, sometimes we don't</li>
+            <li>Engineers vs. architects and why security has to start moving left (earlier) in our project inception.</li>
+            <li>Confession Time - accountability and redemption</li>
+            <li>Not too late to bounce and not hurt my feelings</li>
+            <li>Meme Credit: https://www.mememaker.net/meme/get-ready-for-these-super-sweet-dance-moves</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide section-break" data-x="0" data-y="7000" >
+        <h1 style="">03 - Security v. Business</h1>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="8000" >
+        <h2 style="">Reality</h2>
+        <ul style="font-size: 1.2em">
+          <li>Business people struggle with security.</li>
+          <li>Technical people struggle with security.</li>
+          <li>Security people struggle with both sides.</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/epic-battle.jpg' alt='Epic Battle'>
+        <div class='notes'>
+          <ul>
+            <li>Gridlock</li>
+            <li>Business people think in functional requirements - specifically positive business Requirements
+              <ul>
+                <li>Non-functional requirements are a drag</li>
+                <li>Negative requirements - you mean I have to name all the things it can't do?</li>
+              </ul>
+            </li>
+            <li> Technical people think in "keep it running" - availability is part of the CIA triad</li>
+            <li> Security People want least privilege, non functional requirements, compliance.</li>
+            <li>Immovable object meets an unstoppable force</li>
+            <li>Meme Credit: https://www.memecenter.com/fun/537920/epic-battle</li>
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="step slide" data-x="0" data-y="9000" >
+        <h2 style="">Security Requirements</h2>
+        <ul>
+          <li>Keep the hackers out.</li>
+          <li>Maintain compliance and/or regulator satisfaction.</li>
+          <li>Train developers on secure coding practices.</li>
+          <li>Keep penetration testers out.</li>
+          <li>Sanitize untrusted input.</li>
+          <li>Implement CIS benchmarks.</li>
+          <li>No High or Critical findings</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/requirements.jpg' alt='Requirements Fail. '>
+
+        <div class='notes'>
+          <ul>
+            <li>Business people are focused on planned functionality.</li>
+            <li>Security people are worried about unplanned functionality.</li>
+            <li>No high or critical findings - consider devops SDLC, penetration test.</li>
+            <li>Requirements can be difficult because it's so obvious to the visionary.</li>
+            <li>Meme Credit https://imgflip.com/i/1a6k84</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="10000" >
+        <h2 style="">Business Requirements</h2>
+        <ul>
+          <li>Calculate interest on a loan.</li>
+          <li>Send a purchase order electronically.</li>
+          <li>Automate the disbursement process.</li>
+          <li>Complete the first sprint by Feb 28.</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:30%' src='img/requirements-fail.jpg' alt='requirements fail'>
+
+        <div class='notes'>
+          <ul>
+            <li>Business people and planned functionality</li>
+            <li>Loan - Adjustable Rate, Caps, Service Member, what loan balance to use.</li>
+            <li> PO - EDI... wow</li>
+            <li> Automate disbursement - Security people are going nuts - controls over money movement</li>
+            <li>Meme Credit: https://memegenerator.net/instance/75439838/roll-safe-hd2-cant-fail-to-meet-requirements-if-there-are-no-requirements</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="11000" >
+        <h2 style="">Technical Requirements</h2>
+        <ul>
+          <li>Response latency < 2 seconds. </li>
+          <li>Application must be testable.</li>
+          <li>Application must run on Microsoft Windows, Android, iOS.</li>
+          <li>Network throughput SLA must be 2Mb/s.</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:30%' src='img/yes-requirements.jpg' alt='Yes Requirements.'>
+
+        <div class='notes'>
+          <ul>
+            <li>No plan to dwell on technical requirements</li>
+            <li>Illustrate the challenges technical stakeholders have to address</li>
+            <li>Testable - Automated, human testable, Pen Testable (think production)</li>
+            <li>Meme Credit: https://makeameme.org/meme/yes-these-requirements</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="12000" >
+        <h2 style="">The Result</h2>
+        <ul>
+          <li>CFO wants results yesterday.</li>
+          <li>CTO wants to be meet the SLA.</li>
+          <li>CISO wants to dot the "i" and cross the "t."</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:30%' src='img/then-we-are-at-an-impasse.jpg' alt='We are at an impasse.'>
+        <div class='notes'>
+          <ul>
+            <li>It took me 4 slides to get there, but here is the problem in business terms.</li>
+            <li>Chief Scape Goat</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide section-break" data-x="0" data-y="13000" >
+        <h1 style="">04 - Security Balance</h1>
+      </div>
+
+
+
+      <div class="step slide" data-x="0" data-y="14000" >
+        <h2 style="">Security Overpowers Business</h2>
+        <ul>
+          <li>A German pro basketball team was relegated to a lower division due to a Windows update (2015)</li>
+          <li>User can't create a valid password at change time (2019)</li>
+          <li>GrooveShark (2015)</li>
+          <li>Countless failed startups you never heard mentioned</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/not-what-you-think-it-means.jpg' alt='Not What you think.'>
+        <div class='notes'>
+          <ul>
+            <li>I didn't know Germany had professional basketball teams...
+              <ul>
+                <li>Scoreboard laptop was due for patching</li>
+                <li>https://www.exoplatform.com/blog/2017/08/01/5-of-the-biggest-information-technology-failures-and-scares/</li>
+              </ul>
+            </li>
+            <li>Imagine a security consultant sits down with a new account</li>
+            <li>GrooveShark is a sideways example - security, more specifically compliance, overpowered the business objects later than it should have.
+              https://www.businessinsider.com/startups-that-failed-in-2015-2015-12#grooveshark-5 </li>
+            <li>Meme Credit: https://www.blackhillsinfosec.com/five-signs-organization-failing-security/ </li>
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="step slide" data-x="0" data-y="15000" >
+        <h2 style="">Business Overpowers Security</h2>
+        <ul>
+          <li>Mirai Botnet</li>
+          <li>Target's Heating and Cooling System Breach (~$202M)</li>
+          <li>Yahoo lost 500M Passwords; Linkedin 117M</li>
+          <li>Hillary Clinton's Email Server</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/not-personal-business.jpg' alt='Not personal.'>
+        <div class='notes'>
+          <ul>
+            <li>Thanks to insecure IoT, routers, etc, we now have this looming threat of botnets</li>
+            <li>Target http://fortune.com/2017/05/23/target-settlement-data-breach-lawsuits/ </li>
+            <li>I'm usually not interested in politics, but this scandal fit too well.</li>
+            <li>Meme Credit: https://memegenerator.net/instance/66630633/the-godfather-its-not-personal-its-business</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="16000" >
+        <h2 style="">Balance is Key</h2>
+        <ul>
+          <li>Risk perspective is missing.</li>
+          <li>Context is under-appreciated.</li>
+          <li>Healthy discourse is difficult.</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:50%' src='img/miyagi-say-balance-is-key.jpg' alt='Miyagi say balance.'>
+        <div class='notes'>
+          <ul>
+            <li>These are the fundamental problems I see in my practice</li>
+            <li>Microsoft deems patching so important everything else must stop</li>
+            <li>A CIO deems something else more important and does not prioritize patching on public facing servers</li>
+<li>We live in a polarizing time.  Political and social issues force us to one side or the other and social media has encouraged us to fight for our right to think and oppress anyone who thinks differently.</li>
+            <li>We also see technology and security evolving so rapidly that anyone outside the space struggles to stay informed.</li>
+            <li>Meme Credit: https://memegenerator.net/instance/55533851/mr-miyagi-miyagi-say-balance-is-key</li>
+          </ul>
+        </div>
+      </div>
+
+
+
+      <div class="step slide section-break" data-x="0" data-y="17000" >
+        <h1 style="">05 - Architectural Solutions</h1>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="18000" >
+        <h2 style="">Architecting the Internet - TCP/IP</h2>
+        <ul>
+          <li>Designed in the 1970's</li>
+          <li>Adopted in the 1980's</li>
+          <li>Secured in the 1990's</li>
+          <li>Online Banking and Paris Hilton widely adopted in the 2000's</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/tcpip.jpg' alt='TCIP Graphic'>
+        <div class='notes'>
+          <ul>
+            <li>Walk through an architectural success</li>
+            <li>Remember, when Al Gore architected the internet&hellip; IT was about information sharing between universities.
+              The problem to solve was not how do we keep people out, the problem they were solving was how to include
+              more brainpower for the other problems facing academia and society.</li>
+            <li>Secured in the 90's TLS - Transport layer security.
+              Lot's of challenges and improvements over the years,
+              but Netscape enabled confidentiality and integrity over the
+              World Wide Web in 1994.
+               https://sites.google.com/site/tlsssloverview/history
+             </li>
+             <li>The point I want to make is that Robert Kahn and Vinton Cerf
+               somehow architected a solution that not only solved their immediate
+               problem, but provided a framework that solved 40 years of problems.
+               https://en.wikipedia.org/wiki/Internet_protocol_suite
+             </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="19000" >
+        <h2 style="">Architecting the Internet - DNS</h2>
+        <ul>
+          <li>Proposed in 1983; essential since 1985</li>
+          <li>Designed for 50M addresses, currently 271M</li>
+          <li>DNSSEC introduced in 1997</li>
+          <li>Dan Kaminsky's bug 2008</li>
+          <li>DNSpionage 2019; 25% US Adoption of DNSSEC</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/dns-design.png' alt='DNS Design'>
+        <img class='bottom-left-pic' style='height:40%' src='img/dns-abuse.jpg' alt='DNS Abuse'>
+        <div class='notes'>
+          <ul>
+            <li>Walkthrough an architectural fail</li>
+            <li>No slight to Paul Mockapetris, DNS is an amazing solutions verified by our continued use and support</li>
+            <li>Designed for a smaller, less hostile internet and networks.</li>
+            <li>VERY Fast.  Doesn't have time for authentication.  So the engineers had to bolt-on security after the solution was fully rolled-out.</li>
+            <li>Elegant solution designed, but not adopted.  Still leaves local race attacks.</li>
+            <li>http://www.webhostingsearch.com/articles/history-of-domains-names.php</li>
+            <li>https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions</li>
+            <li>https://stats.labs.apnic.net/dnssec/XA?c=XA&x=1&g=1&r=1&w=7&g=0</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="20000" >
+        <h2 style="">Lessons Learned</h2>
+        <ul>
+          <li>Some controls are difficult to "bolt on" after rollout.</li>
+
+          <li>Forecasting unexpected use cases is hard.</li>
+          <li>The architecture must leave "bolt holes" for security.</li>
+          <li>Consumers don't always prioritize security.</li>
+          <li>Security can take years.</li>
+
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/look-at-all-these-new-lessons-learned.jpg' alt='Lesson learned.'>
+        <div class='notes'>
+          <ul>
+            <li>http://www.webhostingsearch.com/articles/history-of-domains-names.php</li>
+            <li>https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions</li>
+            <li>https://stats.labs.apnic.net/dnssec/XA?c=XA&x=1&g=1&r=1&w=7&g=0</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="21000" >
+        <h2 style="">Improving Security</h2>
+        <ul>
+          <li>Containers
+            <ul>
+              <li>Don't patch, rebuild</li>
+              <li>Infrastructure as code  (i.e. version tracking)</li>
+            </ul>
+          </li>
+          <li>DevSecOps - Integrating Security Testing In Development
+            <ul>
+              <li>Static Application Security Testing</li>
+              <li>Dynamic Application Security Testing.</li>
+            </ul>
+          </li>
+          <li>Software Frameworks
+            <ul>
+              <li>Solve common problems</li>
+            </ul>
+          </li>
+        </ul>
+        <img class='bottom-right-pic' style='height:30%' src='img/container-container.jpg' alt='Containers'>
+        <div class='notes' >
+          <ul style='font-size:80%;'>
+            <li>Most of us are not solving problems at Internet scale like
+              TCP/IP and DNS</li>
+            <li>Want to highlight several technologies and approaches that
+              SHOULD be changing the way we build solutions.</li>
+            <li>Containers are the next evolutionary step of Virtualization to
+              over-simplify</li>
+            <li>They provide a new layer in the stack that we can secure.</li>
+            <li>They also create a new layer that has to be secured.</li>
+            <li>Tool to improve security and simultaneously reminds us that we
+              need to be careful when we pick up a loaded gun.</li>
+            <li>Changes the way we apply security patches.</li>
+            <li>Changes the way we build systems, which leads us to DevSecOps</li>
+            <li>DevSecOps is consolidation of three distinct views that have to
+              work together.</li>
+            <li>Model for addressing security, development and Operations
+              concerns throughout the life cycle.</li>
+            <li>The tools in this space are providing assurance to technology
+              managers who at least some form of security review occurred at
+              the source code and running application level.</li>
+            <li>Frameworks</li>
+            <li>Great example of using software frameworks - Cross Site Request Forgery fell off the OWASP top 10</li>
+            <li>Developers are writing less code to solve problems.  Hopefully copy/pasting fewer snippets and relying on a reviewed and holistic solution.</li>
+            <li>Meme Credit https://memegenerator.net/instance/56153570/yo-dawg-yo-dawg-i-heard-you-like-containers-so-i-put-a-container-in-your-container</li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide section-break" data-x="0" data-y="22000" >
+        <h1 style="">06 - Security Practitioners</h1>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="23000" >
+        <h2 style="">Partner Perceptions</h2>
+        <ul>
+          <li>Just say no.</li>
+          <li>Abuse fear, uncertainty, &amp; doubt (FUD).</li>
+          <li>Overstate risk.</li>
+          <li>Don't understand the technology's built-in controls.</li>
+          <li>Slow down and delay projects.</li>
+          <li>Only understand [Insert Background]</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/no-because-no.jpg' alt='No because no.'>
+        <div class='notes'>
+          <ul>
+            <li>Meme Credit: https://weheartit.com/entry/64669958</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="24000" >
+        <h2 style="">Ideals</h2>
+        <ul>
+          <li>"Yes, and&hellip;"</li>
+          <li>Trust, Assurance &amp; Confidence (TAC).</li>
+          <li>Understand enough background to be helpful.</li>
+          <li>Paint accurate risk pictures.</li>
+          <li>Understand technical controls.</li>
+          <li>Connect silos and accelerate projects.</li>
+          <li>Don't accept risk.</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/yes-and.jpg' alt='yes and.'>
+        <div class='notes'>
+          <ul>
+            <li>Transition: As security practitioners, the perception is clear, the ideals are clear, what's the problem</li>
+            <li>Meme Credit: https://www.nelsenbiomedical.com/2015/09/08/say-yes-and-how-the-rules-of-improv-improve-your-success-in-business/</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="25000" >
+        <h2 style="">Hard to find good help</h2>
+        <ul>
+          <li>We can't all be the best.</li>
+          <li>Can't educate a practitioner to full competence.</li>
+          <li>Industry trend - full stacking</li>
+          <li>Information Security</li>
+          <li>Risk Analysis</li>
+          <li>Networking, Servers, Clients, Mobile, Users</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:30%' src='img/willing-to-do-it-cheaper.png' alt='Cheaper'>
+        <div class='notes'>
+          <ul>
+            <li>Full stacking Reference - https://itnext.io/the-cloud-skills-shortage-and-the-unemployed-army-of-the-certified-bd405784cef1</li>
+            <li>Meme Credit: https://me.me/i/there-is-always-someone-willing-to-do-it-cheaper-21853204</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step slide" data-x="0" data-y="26000" >
+        <h2 style="">Addressing the Talent Gap</h2>
+        <ul>
+          <li>Security Associate Programs (OJT)</li>
+          <li>Job rotation</li>
+          <li>Certification</li>
+          <li>Mentoring</li>
+          <li>Cybersecurity Education Reform</li>
+          <li>Sales and Presentation Skills</li>
+        </ul>
+        <img class='bottom-right-pic' style='height:40%' src='img/skills.jpg' alt='Skills.'>
+        <div class='notes'>
+          <ul>
+            <li>This is not a new problem.  But our fast paced technology and
+              extreme division of labor blinds us to the solution.</li>
+            <li>We want to send someone to a boot camp and have them return a
+              security practitioner.</li>
+            <li>We want to send someone a 4-year college to earn a bachelor's
+              degree in cybersecurity.</li>
+            <li>Maybe we just need a consultant who says they understand the
+              security problem.  And now, feed our retention monster.</li>
+            <li>Steel Industry early 2000's - unable to find high caliber
+              engineers&hellip; we may have to invest in new talent again.</li>
+            <li>Cybersecurity Education</li>
+            <li>Meet very few Cybersecurity bachelors degrees that are fluent
+              in Security</li>
+            <li>Cybersecurity degrees need to become the liberal arts of
+              technology.</li>
+            <li>And this is my lesson learned over the last 30 years.
+              We need to equip people to sell ideas.  The amazing technical
+              resources who I meet often have trouble conveying their ideas.
+            <li>Meme Credit: http://www.quickmeme.com/meme/3totnk</li>
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="step slide section-break" data-x="0" data-y="27000" >
+        <h1 style="">07 - Questions</h1>
+      </div>
+
+
+    </div> <!-- End Impress Div -->
+
+    <script src='js/impress.js' type="text/javascript"></script>
+    <script type="text/javascript">impress().init(); </script>
+  </body>
+</html>
