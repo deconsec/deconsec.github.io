@@ -16,4 +16,20 @@ Deconstructed Security LLC offers a new approach to cybersecurity for small ente
 <h1>Deconstructed Security, LLC</h1>
 <h2>Rebuilding Security 1</h2>
 
-<div style="background-image:url('images/rick-mason-532835-unsplash-cropped-1440.png');"></div>
+<div style="background-image:url(images/rick-mason-532835-unsplash-cropped-1440.png);position: absolute;
+
+top: 0;
+
+right: 0;
+
+bottom: 0;
+
+left: 0;
+
+width: 100%;
+
+height: 100%;
+
+background-position: 50% 50%;
+
+background-size: cover;"></div>
