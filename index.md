@@ -28,7 +28,7 @@ left: 0;
 
 width: 100%;
 
-height: 100%;
+height: 29em;
 
 background-position: 50% 50%;
 
