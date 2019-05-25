@@ -5,8 +5,11 @@ title: Home
 
 <div style="background-image:url(images/rick-mason-532835-unsplash-cropped-1440.png); position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 10em; background-position: 50% 50%; background-size: cover;"></div>
 
-<div style="margin-top:11em;">
+<div style="margin-top:6em;">
 <h1>Deconstructed Security, LLC</h1>
+<span>Information Security is a mess.  We clean it up.</span>
+
+<p>The farmer's almanac reminds us "Knowledge comes from taking things apart.  Wisdom comes from putting things together."  Deconstructed Security, LLC helps clients return to first principles and build a wise security strategy.</p>
 
 </div>
 
