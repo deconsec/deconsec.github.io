@@ -225,7 +225,7 @@ License: https://www.wowthemes.net/freebies-license/
 }
 span.sitetitle{
    font-family:Righteous;
-   font-size: 2.5rem;
+   font-size: 2.5em;
 }
 
 span.grayed {
@@ -288,7 +288,7 @@ blockquote:after{
     /* -- inside the relative position of blockquote -- */
     top: 13px;
     color: #E8E8E8;
-    font-size: 5em;
+    font-size: 3em;
 }
 blockquote:before{
     content: "\201C";
