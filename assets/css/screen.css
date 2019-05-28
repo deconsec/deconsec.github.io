@@ -265,6 +265,47 @@ span.grayed {
  .article-post p,.article-post blockquote {
      margin:0 0 1.5rem 0;
 }
+
+
+
+blockquote {
+    border-radius: 3px;
+    position: relative;  /*  <--- */
+    font-style: italic;
+    text-align: center;
+    padding: 1rem 1.2rem;
+    width: 80%;  /* create space for the quotes */
+    color: #4a4a4a;
+    margin: 1rem auto 2rem;
+    color: #4a4a4a;
+    background: #E8E8E8;
+}
+/* -- create the quotation marks -- */
+blockquote:before,
+blockquote:after{
+    font-family: FontAwesome;
+    position: absolute;
+    /* -- inside the relative position of blockquote -- */
+    top: 13px;
+    color: #E8E8E8;
+    font-size: 5em;
+}
+blockquote:before{
+    content: "\201C";
+    margin-right: 13px;
+    right: 100%;
+}
+blockquote:after{
+    content: "\201d";
+    margin-left: 13px;
+    left: 100%;
+}
+
+
+
+
+
+
  .featured-image {
      display:block;
      margin-bottom:1.5rem;
