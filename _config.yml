@@ -1,7 +1,7 @@
 remote_theme: wbmartin/mediumish-theme-jekyll
 baseurl: /
 name: Deconstructed Security
-description: Simplifying Information Security
+description: Simplifying InfoSec
 logo: assets/images/logo.png
 disqus: ''
 google_analytics: 'UA-139555858-1'
